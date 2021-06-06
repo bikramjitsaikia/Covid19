@@ -3,6 +3,7 @@ package my.bikram.project.covid.model.json;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.FormatStyle;
 import java.time.temporal.ChronoField;
 
 public class Statewise {
@@ -86,7 +87,9 @@ public class Statewise {
 		    .appendText(ChronoField.SECOND_OF_MINUTE)
 		    .toFormatter(); 
 		LocalDateTime time = LocalDateTime.parse(lastupdatedtime, formatter);
-		this.lastupdatedtime = time.toString();
+		this.lastupdatedtime = time
+				.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM))
+				.toString();
 	}
 
 	public String getMigratedother() {

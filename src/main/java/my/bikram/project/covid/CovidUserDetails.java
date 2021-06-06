@@ -57,7 +57,7 @@ public class CovidUserDetails implements UserDetails {
 	}
 	
 	public String getFullUserName() {
-		return user.getFirstName() + user.getLastName();
+		return user.getFirstName() + " " + user.getLastName();
 	}
 
 }

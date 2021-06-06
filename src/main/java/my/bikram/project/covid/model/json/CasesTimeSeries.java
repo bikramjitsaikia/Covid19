@@ -1,6 +1,6 @@
 package my.bikram.project.covid.model.json;
 
-public class CasesTimeSery{
+public class CasesTimeSeries{
     private String dailyconfirmed;
     private String dailydeceased;
     private String dailyrecovered;

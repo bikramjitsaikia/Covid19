@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>All Users - Covid 19 India</title>
+	<link rel="stylesheet" type="text/css"
+		href="webjars/bootstrap/css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css"
+		href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" type="text/css"
+		href="https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css">
+    <style>
+		.dataTables_filter input {
+		   background-color: 'white';
+		}
+		.dataTables_wrapper 
+		     div.dataTables_wrapper 
+		         div.dataTables_filter input {
+		     color: white;
+		     background-color: red;
+		}
+    </style>
+
+	<script type="text/javascript"
+		src="https://code.jquery.com/jquery-3.6.0.js"></script>
+	<script type="text/javascript"
+		src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript"
+		src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
+	<script type="text/javascript"
+		src="https://code.highcharts.com/highcharts.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+		    // Create DataTable
+		    $('#stateTable').DataTable({
+		        dom: 'Pfrtip',
+		        search: {
+		        	color: 'white'
+		        }
+		    });
+		});
+    </script>
+</head>
+<body class="bg-dark">
+	<div th:replace="~{nav_fragments/user_nav :: user_nav}"></div>
+
+	<div class="container-fluid">
+			<table id="stateTable" class="table table-dark"
+			 data-order='[[2, "desc"]]'
+			 data-paging='false'>
+				<thead>
+					<tr>
+						<th>State</th>
+						<th>Confirmed</th>
+						<th>Recovered</th>
+						<th>Active</th>
+						<th>Death</th>
+						<th>Last updated</th>						
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="state: ${states}" th:if="${state.state} != 'Total'">
+						<td th:text="${state.state}">State</td>
+						<td>
+							<small th:text="'+' + ${state.deltaconfirmed}" style="color:  #faff33 "></small>
+							<p th:text="${state.confirmed}"/>
+						</td>
+						<td>
+							<small th:text="'+' + ${state.deltarecovered}" style="color:  #33ff33"></small>
+							<p th:text="${state.recovered}"/>
+						</td>
+						<td th:text="${state.active}">Active</td>
+						<td>
+							<small th:text="'+' + ${state.deltadeaths}" style="color:  #ff4b33"></small>
+							<p th:text="${state.deaths}"/>
+						</td>
+						<td th:text="${state.lastupdatedtime}">Last updated</td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr th:object="${total}">
+						<td th:text="*{state}">State</td>
+						<td>
+							<small th:text="'+' + *{deltaconfirmed}"></small>
+							<p th:text="*{confirmed}"/>
+						</td>
+						<td>
+							<small th:text="'+' + *{deltarecovered}"></small>
+							<p th:text="*{recovered}"/>
+						</td>
+						<td th:text="*{active}">Active</td>
+						<td>
+							<small th:text="'+' + *{deltadeaths}"></small>
+							<p th:text="*{deaths}"/>
+						</td>
+						<td th:text="*{lastupdatedtime}">Last updated</td>
+					</tr>
+				</tfoot>
+			</table>
+	</div>
+</body>
+</html>
